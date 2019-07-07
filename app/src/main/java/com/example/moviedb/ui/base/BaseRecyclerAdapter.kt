@@ -1,5 +1,6 @@
 package com.example.moviedb.ui.base
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -21,7 +22,12 @@ abstract class BaseRecyclerAdapter<Item, ViewBinding : ViewDataBinding>(
 ) {
 
     override fun submitList(list: List<Item>?) {
-        super.submitList(ArrayList<Item>(list ?: listOf()))
+        val newList = ArrayList<Item>(list ?: listOf())
+        Log.e("submitList", list.hashCode().toString())
+        Log.e("submitList0", list?.get(0).hashCode().toString())
+        Log.e("submitList", newList.hashCode().toString())
+        Log.e("submitList0", newList[0].hashCode().toString())
+        super.submitList(newList)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ViewBinding> {
@@ -35,6 +41,7 @@ abstract class BaseRecyclerAdapter<Item, ViewBinding : ViewDataBinding>(
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<ViewBinding>, position: Int) {
+        Log.e("Adapter",position.toString())
         try {
             val item: Item = getItem(position)
             holder.binding.setVariable(BR.item, item)

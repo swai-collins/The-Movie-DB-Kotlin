@@ -2,6 +2,7 @@ package com.example.moviedb.ui.screen.popularmovie
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -30,6 +31,9 @@ class PopularMovieFragment :
 
     private val args: PopularMovieFragmentArgs by navArgs()
 
+    lateinit var adapter: PopularMovieAdapter
+    lateinit var adapter2: MovieAdapter
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -37,19 +41,42 @@ class PopularMovieFragment :
             mode.value = args.type?.toInt()
         }*/
 
-        val adapter = PopularMovieAdapter(
-            itemClickListener = { toMovieDetail(it) }
+        adapter = PopularMovieAdapter(
+            itemClickListener = { movie, position ->
+                //                toMovieDetail(it)
+                val list = viewModel.listItem.value
+                val oldMovie = list?.get(position)
+                val newMovie = list?.get(position)?.copy()
+                newMovie?.title = "123"
+                if (newMovie != null) {
+                    list[position] = newMovie
+                    viewModel.listItem.value = list
+                }
+//                adapter.notifyItemChanged(position)
+            }
+        )
+
+        adapter2 = MovieAdapter(
+            listITem = viewModel.listItem.value ?: arrayListOf<Movie>(),
+            itemClickListener = { movie, position ->
+
+            }
         )
 
         container.setBackgroundColor(Color.BLACK)
         recycler_view.apply {
             layoutManager = GridLayoutManager(context, 2)
-            this.adapter = adapter
+            this.adapter = this@PopularMovieFragment.adapter
         }
 
         viewModel.apply {
             listItem.observe(viewLifecycleOwner, Observer {
+                Log.e("observe", it.hashCode().toString())
+                Log.e("observe0", it[0].hashCode().toString())
                 adapter.submitList(it)
+
+                adapter2.listITem = it
+                adapter2.notifyDataSetChanged()
             })
             firstLoad()
         }

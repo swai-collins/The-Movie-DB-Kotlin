@@ -21,8 +21,8 @@ class FavoriteMovieFragment :
         super.onActivityCreated(savedInstanceState)
 
         val adapter = PopularMovieAdapter(
-            itemClickListener = {
-                toMovieDetail(it)
+            itemClickListener = { movie, position ->
+//                toMovieDetail(it)
             }
         )
 
