@@ -26,6 +26,7 @@ android {
 
     buildTypes {
         getByName("debug") {
+            isTestCoverageEnabled = true
             isDebuggable = true
             isMinifyEnabled = false
             isShrinkResources = false
@@ -88,7 +89,7 @@ android {
     kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
 
     // https://developer.android.com/topic/libraries/data-binding
-    buildFeatures{
+    buildFeatures {
         dataBinding = true
     }
 
@@ -103,13 +104,13 @@ dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta4")
     implementation("androidx.recyclerview:recyclerview:1.1.0")
-    implementation("com.google.android.material:material:1.2.0-alpha05")
+    implementation("com.google.android.material:material:1.2.0-alpha06")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${KotlinCompilerVersion.VERSION}")
     implementation("androidx.multidex:multidex:2.0.1")
 
     // List of KTX extensions
     // https://developer.android.com/kotlin/ktx/extensions-list
-    implementation("androidx.core:core-ktx:1.3.0-beta01")
+    implementation("androidx.core:core-ktx:1.3.0-rc01")
 //    implementation("androidx.activity:activity-ktx:1.1.0")
     implementation("androidx.fragment:fragment-ktx:1.2.4")
 
@@ -137,9 +138,9 @@ dependencies {
 
     // navigation
     // https://developer.android.com/jetpack/androidx/releases/navigation
-    implementation("androidx.navigation:navigation-runtime-ktx:2.3.0-alpha04")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.0-alpha04")
-    implementation("androidx.navigation:navigation-ui-ktx:2.3.0-alpha04")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.3.0-alpha05")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.3.0-alpha05")
+    implementation("androidx.navigation:navigation-ui-ktx:2.3.0-alpha05")
     // Dynamic Feature Module Support
 //    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.3.0-alpha02")
 
